@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ai.mapper.CardMapper">
+	<!-- 自定义返回结果集 -->
+	<!-- String cardPwd; String cardState; String cardOperDate; String homeProv; 
+		String roamFlag; Timestamp effetTime; Timestamp abateTime; String bindingNum; 
+		Integer cardPrice; Timestamp cardStoreTime; Timestamp cardActiveTime; String 
+		pkgId; Timestamp cardBindingTime; String cardOrderId; String fromProv; Timestamp 
+		transferDate; Timestamp cardLockTime; Timestamp card_expTime; String idActivity; 
+		String idTwoLevel; String idOneLevel; -->
+	<resultMap id="cardList" type="Card">
+		<id property="cardNo" column="card_no" javaType="java.lang.String"></id>
+		<result property="cardPwd" column="card_pwd" javaType="java.lang.String"></result>
+		<result property="cardState" column="card_state" javaType="java.lang.String"></result>
+		<result property="cardOperDate" column="card_oper_date"
+			javaType="java.lang.String"></result>
+		<result property="homeProv" column="home_prov" javaType="java.lang.String"></result>
+		<result property="roamFlag" column="roam_flag" javaType="java.lang.String"></result>
+		<result property="effetiTime" column="effeti_time" javaType="java.sql.Timestamp"></result>
+		<result property="abateTime" column="abate_time" javaType="java.sql.Timestamp"></result>
+		<result property="bindingNum" column="binding_num" javaType="java.lang.String"></result>
+		<result property="cardPrice" column="card_price" javaType="java.lang.Integer"></result>
+		<result property="cardStoreTime" column="card_store_time"
+			javaType="java.sql.Timestamp"></result>
+		<result property="cardActiveTime" column="card_active_time"
+			javaType="java.sql.Timestamp"></result>
+		<result property="pkgId" column="pkg_id" javaType="java.lang.String"></result>
+		<result property="cardBindingTime" column="card_binding_time"
+			javaType="java.sql.Timestamp"></result>
+		<result property="cardOrderId" column="card_order_id" javaType="java.lang.String"></result>
+		<result property="fromProv" column="from_prov" javaType="java.lang.String"></result>
+		<result property="transferDate" column="transfer_date"
+			javaType="java.sql.Timestamp"></result>
+		<result property="cardLockTime" column="card_lock_time"
+			javaType="java.sql.Timestamp"></result>
+		<result property="cardExpTime" column="card_exp_time" javaType="java.sql.Timestamp"></result>
+		<result property="idActivity" column="id_activity" javaType="java.lang.String"></result>
+		<result property="idTwoLevel" column="id_two_level" javaType="java.lang.String"></result>
+		<result property="idOneLevel" column="id_one_level" javaType="java.lang.String"></result>
+	</resultMap>
+	<select id="selectAllCard" resultMap="cardList">
+		select c.* from ods3_core_card_data c
+	</select>
+	<insert id="insertCard">
+		insert into ods3_core_card_data(card_no,card_pwd,card_state)
+		values(#{cardNo},#{cardPwd},#{cardState})
+	</insert>
+	
+	<!-- <update id="updateCardPwd" resultMap="cardMap"
+		parameterClass="java.lang.String">
+		update ods3_core_card_data set
+		card_pwd = #cardPwd#
+		where
+		card_no = #cardNo#
+	</update> -->
+	<!--开启mybatis的二级缓存 -->
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true" />
+</mapper> 
